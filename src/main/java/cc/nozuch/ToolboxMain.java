@@ -56,9 +56,7 @@ public final class ToolboxMain extends JavaPlugin {
                 String URL = new AppUtil().AppParseToUtil(plainText);
                 logger.info("[URL]" + URL);
                 group.sendMessage("转发来自: " + senderName + "\n" + URL);
-                /*
-                * 撤回原消息
-                */
+                //撤回原消息
                 MessageSource.recall(messageChain);
             }
         });
