@@ -14,6 +14,8 @@ import net.mamoe.mirai.message.data.MessageSource;
 import net.mamoe.mirai.utils.MiraiLogger;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+
 public final class ToolboxMain extends JavaPlugin {
     public static final String APP_HEADER = "[mirai:app";
 
@@ -47,15 +49,18 @@ public final class ToolboxMain extends JavaPlugin {
             //获取纯文本
             String plainText = messageChain.contentToString();
 //            logger.info("MiraiCode: "+miraiCode);
-//            logger.info("PlainText: "+plainText);
+            logger.info("PlainText: "+plainText);
 
             /*
              * 小程序转为链接
              */
             if (miraiCode.contains(APP_HEADER)) {
-                String URL = new AppUtil().AppParseToUtil(plainText);
-                logger.info("[URL]" + URL);
-                group.sendMessage("转发来自: " + senderName + "\n" + URL);
+                try {
+                    MessageChain message = new AppUtil().AppParseToUtil(event.getSubject(), plainText, senderName);
+                    group.sendMessage(message);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 //撤回原消息
                 MessageSource.recall(messageChain);
             }

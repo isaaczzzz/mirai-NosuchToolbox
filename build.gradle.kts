@@ -16,4 +16,5 @@ repositories {
 
 dependencies {
     implementation("com.alibaba:fastjson:2.0.18")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
 }
