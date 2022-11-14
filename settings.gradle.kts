@@ -1,1 +1,1 @@
-rootProject.name = "toolbox"
+rootProject.name = "NosuchToolbox"
