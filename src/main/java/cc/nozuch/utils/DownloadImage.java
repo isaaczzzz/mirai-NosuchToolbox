@@ -14,6 +14,7 @@ public class DownloadImage {
      * @return
      * @throws IOException
      */
+    public static final String HTTPS_HEADER = "https://";
     public static byte[] getUrlByByte(String url) throws IOException {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
@@ -21,8 +22,16 @@ public class DownloadImage {
                 .callTimeout(60, TimeUnit.SECONDS)
                 .build();
 
+        String finalUrl;
+        //检查url是否有http头
+        if (!url.startsWith(HTTPS_HEADER)) {
+            finalUrl = HTTPS_HEADER + url;
+        } else {
+            finalUrl = url;
+        }
+
         Request request = new Request.Builder()
-                .url(url)
+                .url(finalUrl)
                 .addHeader("Connection", "keep-alive")
                 .build();
 
