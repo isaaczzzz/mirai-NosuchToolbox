@@ -30,7 +30,7 @@ public final class ToolboxMain extends JavaPlugin {
 
     @Override
     public void onLoad(@NotNull PluginComponentStorage $this$onLoad) {
-        getLogger().info("Toolbox Plugin loadeding...");
+        getLogger().info("Toolbox Plugin loading...");
     }
 
     @Override
