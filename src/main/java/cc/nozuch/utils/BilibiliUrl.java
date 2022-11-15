@@ -29,10 +29,10 @@ public class BilibiliUrl {
         // 视频av号
         String aid = data.getString("aid");
         // 视频图片url
-        byte[] pic = data.getBytes("pic");
+        String pic = data.getString("pic");
 
         //获取封面图片
-        ExternalResource er = ExternalResource.Companion.create(pic);
+        ExternalResource er = ExternalResource.Companion.create(DownloadImage.getByteByUrl(pic));
         Image coverImg = ExternalResource.uploadAsImage(er, g);
 
         return new MessageChainBuilder()

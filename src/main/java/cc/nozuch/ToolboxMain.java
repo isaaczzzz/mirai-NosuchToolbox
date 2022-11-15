@@ -66,6 +66,9 @@ public final class ToolboxMain extends JavaPlugin {
                 MessageSource.recall(messageChain);
             }
 
+            /*
+             * 解析BV号
+             */
             if (plainText.contains("bilibili.com/video/BV")) {
                 try {
                     MessageChain message = new BilibiliUrl().BilibiliUrlToUtil(event.getSubject(), plainText, senderName);

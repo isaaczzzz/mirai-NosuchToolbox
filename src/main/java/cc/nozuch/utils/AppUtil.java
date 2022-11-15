@@ -26,7 +26,7 @@ public class AppUtil {
         String title = detail_1.getString("title");
 
         //获取preview中的图片
-        ExternalResource er = ExternalResource.Companion.create(DownloadImage.getUrlByByte(preview));
+        ExternalResource er = ExternalResource.Companion.create(DownloadImage.getByteByUrl(preview));
         Image previewImg = ExternalResource.uploadAsImage(er, g);
 
         return new MessageChainBuilder()
