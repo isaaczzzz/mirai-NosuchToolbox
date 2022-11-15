@@ -1,6 +1,7 @@
 package cc.nozuch;
 
 import cc.nozuch.utils.AppUtil;
+import cc.nozuch.utils.BilibiliUrl;
 import net.mamoe.mirai.console.extension.PluginComponentStorage;
 import net.mamoe.mirai.console.plugin.jvm.JavaPlugin;
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescriptionBuilder;
@@ -57,6 +58,17 @@ public final class ToolboxMain extends JavaPlugin {
             if (miraiCode.contains(APP_HEADER)) {
                 try {
                     MessageChain message = new AppUtil().AppParseToUtil(event.getSubject(), plainText, senderName);
+                    group.sendMessage(message);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                //撤回原消息
+                MessageSource.recall(messageChain);
+            }
+
+            if (plainText.contains("bilibili.com/video/BV")) {
+                try {
+                    MessageChain message = new BilibiliUrl().BilibiliUrlToUtil(event.getSubject(), plainText, senderName);
                     group.sendMessage(message);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
