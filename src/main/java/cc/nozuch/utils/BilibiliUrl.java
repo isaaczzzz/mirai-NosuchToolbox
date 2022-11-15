@@ -40,7 +40,7 @@ public class BilibiliUrl {
                 .append(coverImg)
                 .append(new PlainText("\n[标题]" + title))
                 .append(new PlainText("\n[简介]" + desc))
-                .append(new PlainText("\n[哔哩哔哩] https://www.bilibili.com/video/" + aid + "/"))
+                .append(new PlainText("\n[哔哩哔哩] https://www.bilibili.com/video/av" + aid + "/"))
                 .build();
     }
 }
