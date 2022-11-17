@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "cc.nozuch"
-version = "0.1.0"
+version = "0.1.1"
 
 repositories {
     maven("https://maven.aliyun.com/repository/public")
@@ -17,4 +17,5 @@ repositories {
 dependencies {
     implementation("com.alibaba:fastjson:2.0.18")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("commons-io:commons-io:2.11.0")
 }

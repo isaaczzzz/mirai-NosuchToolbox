@@ -50,7 +50,7 @@ public final class ToolboxMain extends JavaPlugin {
             //获取纯文本
             String plainText = messageChain.contentToString();
 //            logger.info("MiraiCode: "+miraiCode);
-            logger.info("PlainText: "+plainText);
+            // logger.info("PlainText: "+plainText);
 
             /*
              * 小程序转为链接
@@ -58,12 +58,14 @@ public final class ToolboxMain extends JavaPlugin {
             if (miraiCode.contains(APP_HEADER)) {
                 try {
                     MessageChain message = new AppUtil().AppParseToUtil(event.getSubject(), plainText, senderName);
-                    group.sendMessage(message);
-                } catch (IOException e) {
+                    if (!message.isEmpty()) {
+                        group.sendMessage(message);
+                        //撤回原消息
+                        MessageSource.recall(messageChain);
+                    }
+                    } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                //撤回原消息
-                MessageSource.recall(messageChain);
             }
 
             /*
@@ -73,11 +75,11 @@ public final class ToolboxMain extends JavaPlugin {
                 try {
                     MessageChain message = new BilibiliUrl().BilibiliUrlToUtil(event.getSubject(), plainText, senderName);
                     group.sendMessage(message);
+                    //撤回原消息
+                    MessageSource.recall(messageChain);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                //撤回原消息
-                MessageSource.recall(messageChain);
             }
         });
     }
