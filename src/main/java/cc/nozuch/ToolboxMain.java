@@ -1,5 +1,6 @@
 package cc.nozuch;
 
+import cc.nozuch.listener.AppListener;
 import cc.nozuch.utils.AppUtil;
 import cc.nozuch.utils.BilibiliUrl;
 import net.mamoe.mirai.console.extension.PluginComponentStorage;
@@ -18,7 +19,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
 public final class ToolboxMain extends JavaPlugin {
-    public static final String APP_HEADER = "[mirai:app";
 
     public static final ToolboxMain INSTANCE = new ToolboxMain();
 
@@ -39,48 +39,8 @@ public final class ToolboxMain extends JavaPlugin {
         MiraiLogger logger = getLogger();
         logger.info("Plugin loaded!");
 
-        EventChannel<Event> eventChannel = GlobalEventChannel.INSTANCE.parentScope(this);
-        eventChannel.subscribeAlways(GroupMessageEvent.class, event -> {
-            Group group = event.getGroup();
-            MessageChain messageChain = event.getMessage();
-            String senderName = event.getSenderName();
+        EventChannel<Event> channel = GlobalEventChannel.INSTANCE.parentScope(this);
+        channel.registerListenerHost(new AppListener());
 
-            //获取mirai code
-            String miraiCode = messageChain.serializeToMiraiCode();
-            //获取纯文本
-            String plainText = messageChain.contentToString();
-//            logger.info("MiraiCode: "+miraiCode);
-            // logger.info("PlainText: "+plainText);
-
-            /*
-             * 小程序转为链接
-             */
-            if (miraiCode.contains(APP_HEADER)) {
-                try {
-                    MessageChain message = new AppUtil().AppParseToUtil(event.getSubject(), plainText, senderName);
-                    if (!message.isEmpty()) {
-                        group.sendMessage(message);
-                        //撤回原消息
-                        MessageSource.recall(messageChain);
-                    }
-                    } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            /*
-             * 解析BV号
-             */
-            if (plainText.contains("bilibili.com/video/BV")) {
-                try {
-                    MessageChain message = new BilibiliUrl().BilibiliUrlToUtil(event.getSubject(), plainText, senderName);
-                    group.sendMessage(message);
-                    //撤回原消息
-                    MessageSource.recall(messageChain);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
     }
 }
