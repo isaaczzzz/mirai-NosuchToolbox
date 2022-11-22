@@ -18,4 +18,6 @@ dependencies {
     implementation("com.alibaba:fastjson:2.0.19")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("commons-io:commons-io:2.11.0")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
+    implementation("io.github.url-detector:url-detector:0.1.23")
 }

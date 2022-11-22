@@ -23,7 +23,7 @@ public final class ToolboxMain extends JavaPlugin {
     public static final ToolboxMain INSTANCE = new ToolboxMain();
 
     private ToolboxMain() {
-        super(new JvmPluginDescriptionBuilder("cc.nozuch.toolbox", "0.1.0")
+        super(new JvmPluginDescriptionBuilder("cc.nozuch.toolbox", "0.1.1")
                 .name("NosuchToolbox")
                 .author("isaac")
                 .build());
