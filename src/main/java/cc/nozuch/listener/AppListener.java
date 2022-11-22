@@ -49,9 +49,10 @@ public class AppListener extends SimpleListenerHost {
         Group group = event.getGroup();
         MessageChain messageChain = event.getMessage();
         String senderName = event.getSenderName();
+        String miraiCode = messageChain.serializeToMiraiCode();
         String plainText = messageChain.contentToString();
 
-        if ((plainText.contains("bilibili.com/video/") || plainText.contains("b23.tv/"))) {
+        if (!miraiCode.contains(Info.APP_HEADER) && (plainText.contains("bilibili.com/video/") || plainText.contains("b23.tv/"))) {
             try {
                 MessageChain message = new BilibiliUrl().BilibiliUrlToUtil(event.getSubject(), plainText, senderName);
                 group.sendMessage(message);
