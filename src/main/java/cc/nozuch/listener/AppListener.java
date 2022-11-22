@@ -51,7 +51,7 @@ public class AppListener extends SimpleListenerHost {
         String senderName = event.getSenderName();
         String plainText = messageChain.contentToString();
 
-        if ((plainText.contains("bilibili.com/video/") || plainText.contains("b23.tv"))) {
+        if ((plainText.contains("bilibili.com/video/") || plainText.contains("b23.tv/"))) {
             try {
                 MessageChain message = new BilibiliUrl().BilibiliUrlToUtil(event.getSubject(), plainText, senderName);
                 group.sendMessage(message);
